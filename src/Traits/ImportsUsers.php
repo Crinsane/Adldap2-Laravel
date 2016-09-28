@@ -26,7 +26,7 @@ trait ImportsUsers
     protected function getModelFromAdldap(User $user, $password = null)
     {
         // Get the model key.
-        $attributes = $this->getUsernameAttribute();
+        $attributes = $this->getModelKeyAttribute();
 
         // Get the model key.
         $key = key($attributes);
@@ -300,6 +300,16 @@ trait ImportsUsers
     protected function getUsernameAttribute()
     {
         return config('adldap_auth.username_attribute', ['username' => $this->getSchema()->accountName()]);
+    }
+
+    /**
+     * Returns the configured model key attribute for discovering LDAP users.
+     *
+     * @return array
+     */
+    protected function getModelKeyAttribute()
+    {
+        return config('adldap_auth.model_key', ['username' => $this->getSchema()->accountName()]);
     }
 
     /**
